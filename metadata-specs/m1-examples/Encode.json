@@ -1,0 +1,12 @@
+{"mach1Encode": {
+    "InputMode": 4,
+    //"setOutputMode": [mach1Decode[1].decodeAlgorithm],
+    "rotation": 0.85,
+    "diverge": 1.0,
+    "height": -0.5,
+    "StereoRotate": [[<t_start>, <rot_start>], [<x2>, <y2>], [<x3>, <y3>], [<t_end>, <rot_end>]],
+    "StereoSpread": 0.5,
+    "AutoOrbit": false,
+    "IsotropicEncode": true
+}
+}

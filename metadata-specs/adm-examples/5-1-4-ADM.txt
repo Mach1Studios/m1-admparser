@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ebuCoreMain xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="urn:ebu:metadata-schema:ebuCore" xml:lang="en">
+  <coreMetadata>
+    <title typeLabel="FileTitle">
+      <dc:title xml:lang="en">5.1.4 ADM Test File</dc:title>
+    </title>
+    <creator>
+      <organisationDetails>
+        <organisationName>BBC</organisationName>
+      </organisationDetails>
+    </creator>
+    <description typeLabel="Description" typeLink="http://www.ebu.ch/metadata/cs/ebu_DescriptionTypeCodeCS.xml#1">
+      <dc:description>
+This ADM test file contains six tracks with 5.1.4 channels. The audio is an idents saying "M+030", "M-030", etc.
+    </dc:description>
+    </description>
+    <date>
+      <created startDate="2018-02-21"/>
+    </date>
+    <format>
+      <audioFormatExtended>
+        <audioObject audioObjectID="AO_1001" audioObjectName="Main">
+          <audioPackFormatIDRef>AP_00010005</audioPackFormatIDRef>
+          <audioTrackUIDRef>ATU_00000001</audioTrackUIDRef>
+          <audioTrackUIDRef>ATU_00000002</audioTrackUIDRef>
+          <audioTrackUIDRef>ATU_00000003</audioTrackUIDRef>
+          <audioTrackUIDRef>ATU_00000004</audioTrackUIDRef>
+          <audioTrackUIDRef>ATU_00000005</audioTrackUIDRef>
+          <audioTrackUIDRef>ATU_00000006</audioTrackUIDRef>
+          <audioTrackUIDRef>ATU_00000007</audioTrackUIDRef>
+          <audioTrackUIDRef>ATU_00000008</audioTrackUIDRef>
+          <audioTrackUIDRef>ATU_00000009</audioTrackUIDRef>
+          <audioTrackUIDRef>ATU_0000000a</audioTrackUIDRef>
+        </audioObject>
+        <audioTrackUID UID="ATU_00000001" sampleRate="48000" bitDepth="24"/>
+        <audioTrackUID UID="ATU_00000002" sampleRate="48000" bitDepth="24"/>
+        <audioTrackUID UID="ATU_00000003" sampleRate="48000" bitDepth="24"/>
+        <audioTrackUID UID="ATU_00000004" sampleRate="48000" bitDepth="24"/>
+        <audioTrackUID UID="ATU_00000005" sampleRate="48000" bitDepth="24"/>
+        <audioTrackUID UID="ATU_00000006" sampleRate="48000" bitDepth="24"/>
+        <audioTrackUID UID="ATU_00000007" sampleRate="48000" bitDepth="24"/>
+        <audioTrackUID UID="ATU_00000008" sampleRate="48000" bitDepth="24"/>
+        <audioTrackUID UID="ATU_00000009" sampleRate="48000" bitDepth="24"/>
+        <audioTrackUID UID="ATU_0000000a" sampleRate="48000" bitDepth="24"/>
+      </audioFormatExtended>
+    </format>
+  </coreMetadata>
+</ebuCoreMain>
+  

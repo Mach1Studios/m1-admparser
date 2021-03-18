@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ebuCoreMain xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="urn:ebu:metadata-schema:ebuCore" xml:lang="en">
+  <coreMetadata>
+    <format>
+      <audioFormatExtended>
+        <audioProgramme audioProgrammeID="APR_1001" audioProgrammeName="PanningEngineCartesian">
+          <audioContentIDRef>ACO_1001</audioContentIDRef>
+        </audioProgramme>
+        <audioContent audioContentID="ACO_1001" audioContentName="PanningEngineCartesian">
+          <audioObjectIDRef>AO_1001</audioObjectIDRef>
+        </audioContent>
+        <audioObject audioObjectID="AO_1001" audioObjectName="Engine">
+          <audioPackFormatIDRef>AP_00031001</audioPackFormatIDRef>
+          <audioTrackUIDRef>ATU_00000001</audioTrackUIDRef>
+        </audioObject>
+        <audioPackFormat audioPackFormatID="AP_00031001" audioPackFormatName="Engine" typeLabel="0003" typeDefinition="Objects">
+          <audioChannelFormatIDRef>AC_00031001</audioChannelFormatIDRef>
+        </audioPackFormat>
+        <audioChannelFormat audioChannelFormatID="AC_00031001" audioChannelFormatName="Engine" typeLabel="0003" typeDefinition="Objects">
+          <audioBlockFormat audioBlockFormatID="AB_00031001_00000001" rtime="00:00:00.00000" duration="00:00:02.00000">
+            <position coordinate="X">-0.866</position>
+            <position coordinate="Y">0.500</position>
+            <position coordinate="Z">0.00</position>
+          </audioBlockFormat>
+          <audioBlockFormat audioBlockFormatID="AB_00031001_00000002" rtime="00:00:02.00000" duration="00:00:02.00000">
+            <position coordinate="X">-0.500</position>
+            <position coordinate="Y">0.866</position>
+            <position coordinate="Z">0.00</position>
+          </audioBlockFormat>
+          <audioBlockFormat audioBlockFormatID="AB_00031001_00000003" rtime="00:00:04.00000" duration="00:00:02.00000">
+            <position coordinate="X">0.00</position>
+            <position coordinate="Y">1.00</position>
+            <position coordinate="Z">0.00</position>
+          </audioBlockFormat>
+          <audioBlockFormat audioBlockFormatID="AB_00031001_00000004" rtime="00:00:06.00000" duration="00:00:02.00000">
+            <position coordinate="X">0.500</position>
+            <position coordinate="Y">0.866</position>
+            <position coordinate="Z">0.00</position>
+          </audioBlockFormat>
+          <audioBlockFormat audioBlockFormatID="AB_00031001_00000005" rtime="00:00:08.00000" duration="00:00:02.00000">
+            <position coordinate="X">0.866</position>
+            <position coordinate="Y">0.500</position>
+            <position coordinate="Z">0.00</position>
+          </audioBlockFormat>
+        </audioChannelFormat>
+        <audioStreamFormat audioStreamFormatID="AS_00031001" audioStreamFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioChannelFormatIDRef>AC_00031001</audioChannelFormatIDRef>
+          <audioTrackFormatIDRef>AT_00031001_01</audioTrackFormatIDRef>
+        </audioStreamFormat>
+        <audioTrackFormat audioTrackFormatID="AT_00031001_01" audioTrackFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioStreamFormatIDRef>AS_00031001</audioStreamFormatIDRef>
+        </audioTrackFormat>
+        <audioTrackUID bitDepth="24" sampleRate="48000" UID="ATU_00000001"/>
+      </audioFormatExtended>
+    </format>
+  </coreMetadata>
+</ebuCoreMain>
+ 

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ebuCoreMain xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="urn:ebu:metadata-schema:ebuCore" xml:lang="en">
+  <coreMetadata>
+    <title typeLabel="FileTitle">
+      <dc:title xml:lang="en">Mach1 Spatial ADM Test file</dc:title>
+    </title>
+    <creator>
+      <organisationDetails>
+        <organisationName>Mach1</organisationName>
+      </organisationDetails>
+    </creator>
+    <description typeLabel="Description" typeLink="http://www.ebu.ch/metadata/cs/ebu_DescriptionTypeCodeCS.xml#1">
+      <dc:description>
+This is an ADM test file from Mach1 to test out describing and undefined a single Mach1 Spatial and headlocked static stereo mix via ADM objects.
+    </dc:description>
+    </description>
+    <date>
+      <created startDate="2020-04-21"/>
+    </date>
+    <format>
+      <audioFormatExtended>
+        <audioProgramme audioProgrammeID="APR_1001" audioProgrammeName="Mach1Spatial_SingleDecode">
+          <audioContentIDRef>ACO_1001</audioContentIDRef>
+        </audioProgramme>
+        <audioContent audioContentID="ACO_1001" audioContentName="Mach1Spatial_SingleDecode">
+          <audioObjectIDRef>AO_1001</audioObjectIDRef>
+        </audioContent>
+        <!-- OBJECTS -->
+        <audioObject audioObjectID="AO_1001" audioObjectName="TopFrontLeft" start="00:00:00.00000">
+          <audioPackFormatIDRef>AP_00031001</audioPackFormatIDRef>
+          <audioTrackUIDRef>ATU_00000001</audioTrackUIDRef>
+        </audioObject>
+        <audioObject audioObjectID="AO_1002" audioObjectName="TopFrontRight" start="00:00:00.00000">
+          <audioPackFormatIDRef>AP_00031002</audioPackFormatIDRef>
+          <audioTrackUIDRef>ATU_00000002</audioTrackUIDRef>
+        </audioObject>
+        <audioObject audioObjectID="AO_1003" audioObjectName="TopBackLeft" start="00:00:00.00000">
+          <audioPackFormatIDRef>AP_00031003</audioPackFormatIDRef>
+          <audioTrackUIDRef>ATU_00000003</audioTrackUIDRef>
+        </audioObject>
+        <audioObject audioObjectID="AO_1004" audioObjectName="TopBackRight" start="00:00:00.00000">
+          <audioPackFormatIDRef>AP_00031004</audioPackFormatIDRef>
+          <audioTrackUIDRef>ATU_00000004</audioTrackUIDRef>
+        </audioObject>
+        <audioObject audioObjectID="AO_1005" audioObjectName="BottomFronLeft" start="00:00:00.00000">
+          <audioPackFormatIDRef>AP_00031005</audioPackFormatIDRef>
+          <audioTrackUIDRef>ATU_00000005</audioTrackUIDRef>
+        </audioObject>
+        <audioObject audioObjectID="AO_1006" audioObjectName="BottomFrontRight" start="00:00:00.00000">
+          <audioPackFormatIDRef>AP_00031006</audioPackFormatIDRef>
+          <audioTrackUIDRef>ATU_00000006</audioTrackUIDRef>
+        </audioObject>
+        <audioObject audioObjectID="AO_1007" audioObjectName="BottomBackLeft" start="00:00:00.00000">
+          <audioPackFormatIDRef>AP_00031007</audioPackFormatIDRef>
+          <audioTrackUIDRef>ATU_00000007</audioTrackUIDRef>
+        </audioObject>
+        <audioObject audioObjectID="AO_1008" audioObjectName="BottomBackRight" start="00:00:00.00000">
+          <audioPackFormatIDRef>AP_00031008</audioPackFormatIDRef>
+          <audioTrackUIDRef>ATU_00000008</audioTrackUIDRef>
+        </audioObject>
+        <audioObject audioObjectID="AO_1009" audioObjectName="StaticStereo" headLocked="1" start="00:00:00.00000">
+          <audioPackFormatIDRef>AP_00010002</audioPackFormatIDRef>
+          <audioTrackUIDRef>ATU_00000009</audioTrackUIDRef>
+          <audioTrackUIDRef>ATU_00000010</audioTrackUIDRef>
+        </audioObject>
+        <audioPackFormat audioPackFormatID="AP_00031001" audioPackFormatName="TopFrontLeft" typeLabel="0003" typeDefinition="Objects">
+          <audioChannelFormatIDRef>AC_00031001</audioChannelFormatIDRef>
+        </audioPackFormat>
+        <audioPackFormat audioPackFormatID="AP_00031002" audioPackFormatName="TopFrontRight" typeLabel="0003" typeDefinition="Objects">
+          <audioChannelFormatIDRef>AC_00031002</audioChannelFormatIDRef>
+        </audioPackFormat>
+        <audioPackFormat audioPackFormatID="AP_00031003" audioPackFormatName="TopBackLeft" typeLabel="0003" typeDefinition="Objects">
+          <audioChannelFormatIDRef>AC_00031003</audioChannelFormatIDRef>
+        </audioPackFormat>
+        <audioPackFormat audioPackFormatID="AP_00031004" audioPackFormatName="TopBackRight" typeLabel="0003" typeDefinition="Objects">
+          <audioChannelFormatIDRef>AC_00031004</audioChannelFormatIDRef>
+        </audioPackFormat>
+        <audioPackFormat audioPackFormatID="AP_00031005" audioPackFormatName="BottomFrontLeft" typeLabel="0003" typeDefinition="Objects">
+          <audioChannelFormatIDRef>AC_00031005</audioChannelFormatIDRef>
+        </audioPackFormat>
+        <audioPackFormat audioPackFormatID="AP_00031006" audioPackFormatName="BottomFrontRight" typeLabel="0003" typeDefinition="Objects">
+          <audioChannelFormatIDRef>AC_00031006</audioChannelFormatIDRef>
+        </audioPackFormat>
+        <audioPackFormat audioPackFormatID="AP_00031007" audioPackFormatName="BottomBackLeft" typeLabel="0003" typeDefinition="Objects">
+          <audioChannelFormatIDRef>AC_00031007</audioChannelFormatIDRef>
+        </audioPackFormat>
+        <audioPackFormat audioPackFormatID="AP_00031008" audioPackFormatName="BottomBackRight" typeLabel="0003" typeDefinition="Objects">
+          <audioChannelFormatIDRef>AC_00031008</audioChannelFormatIDRef>
+        </audioPackFormat>
+        <audioPackFormat audioPackFormatID="AP_00031009" audioPackFormatName="StaticStereo" typeLabel="0005" typeDefinition="Binaural">
+          <audioChannelFormatIDRef>AC_00031009</audioChannelFormatIDRef>
+        </audioPackFormat>
+        <audioChannelFormat audioChannelFormatID="AC_00031001" audioChannelFormatName="TopFrontLeft" typeLabel="0003" typeDefinition="Objects">
+          <audioBlockFormat audioBlockFormatID="AB_00031001_00000001">
+            <position coordinate="X">-1.0</position>
+            <position coordinate="Y">1.0</position>
+            <position coordinate="Z">1.0</position>
+          </audioBlockFormat>
+        </audioChannelFormat>
+        <audioChannelFormat audioChannelFormatID="AC_00031002" audioChannelFormatName="TopFrontRight" typeLabel="0003" typeDefinition="Objects">
+          <audioBlockFormat audioBlockFormatID="AB_00031002_00000001">
+            <position coordinate="X">1.0</position>
+            <position coordinate="Y">1.0</position>
+            <position coordinate="Z">1.0</position>
+          </audioBlockFormat>
+        </audioChannelFormat>
+        <audioChannelFormat audioChannelFormatID="AC_00031003" audioChannelFormatName="TopBackLeft" typeLabel="0003" typeDefinition="Objects">
+          <audioBlockFormat audioBlockFormatID="AB_00031003_00000001">
+            <position coordinate="X">-1.0</position>
+            <position coordinate="Y">-1.0</position>
+            <position coordinate="Z">1.0</position>
+          </audioBlockFormat>
+        </audioChannelFormat>
+        <audioChannelFormat audioChannelFormatID="AC_00031004" audioChannelFormatName="TopBackRight" typeLabel="0003" typeDefinition="Objects">
+          <audioBlockFormat audioBlockFormatID="AB_00031004_00000001">
+            <position coordinate="X">1.0</position>
+            <position coordinate="Y">-1.0</position>
+            <position coordinate="Z">1.0</position>
+          </audioBlockFormat>
+        </audioChannelFormat>
+        <audioChannelFormat audioChannelFormatID="AC_00031005" audioChannelFormatName="BottomFrontLeft" typeLabel="0003" typeDefinition="Objects">
+          <audioBlockFormat audioBlockFormatID="AB_00031005_00000001">
+            <position coordinate="X">-1.0</position>
+            <position coordinate="Y">1.0</position>
+            <position coordinate="Z">-1.0</position>
+          </audioBlockFormat>
+        </audioChannelFormat>
+        <audioChannelFormat audioChannelFormatID="AC_00031006" audioChannelFormatName="BottomFrontRight" typeLabel="0003" typeDefinition="Objects">
+          <audioBlockFormat audioBlockFormatID="AB_00031006_00000001">
+            <position coordinate="X">1.0</position>
+            <position coordinate="Y">1.0</position>
+            <position coordinate="Z">-1.0</position>
+          </audioBlockFormat>
+        </audioChannelFormat>
+        <audioChannelFormat audioChannelFormatID="AC_00031007" audioChannelFormatName="BottomBackLeft" typeLabel="0003" typeDefinition="Objects">
+          <audioBlockFormat audioBlockFormatID="AB_00031007_00000001">
+            <position coordinate="X">-1.0</position>
+            <position coordinate="Y">-1.0</position>
+            <position coordinate="Z">-1.0</position>
+          </audioBlockFormat>
+        </audioChannelFormat>
+        <audioChannelFormat audioChannelFormatID="AC_00031008" audioChannelFormatName="BottomBackRight" typeLabel="0003" typeDefinition="Objects">
+          <audioBlockFormat audioBlockFormatID="AB_00031008_00000001">
+            <position coordinate="X">1.0</position>
+            <position coordinate="Y">-1.0</position>
+            <position coordinate="Z">-1.0</position>
+          </audioBlockFormat>
+        </audioChannelFormat>
+        <audioChannelFormat audioChannelFormatID="AC_00031009" audioChannelFormatName="StaticStereo" typeLabel="0005" typeDefinition="Binaural">
+          <audioBlockFormat audioBlockFormatID="AB_00031009_00000001">
+            <position coordinate="X">0.0</position>
+            <position coordinate="Y">0.0</position>
+            <position coordinate="Z">0.0</position>
+          </audioBlockFormat>
+        </audioChannelFormat>
+
+        <audioStreamFormat audioStreamFormatID="AS_00031001" audioStreamFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioChannelFormatIDRef>AC_00031001</audioChannelFormatIDRef>
+          <audioTrackFormatIDRef>AT_00031001_01</audioTrackFormatIDRef>
+        </audioStreamFormat>
+        <audioStreamFormat audioStreamFormatID="AS_00031002" audioStreamFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioChannelFormatIDRef>AC_00031002</audioChannelFormatIDRef>
+          <audioTrackFormatIDRef>AT_00031002_01</audioTrackFormatIDRef>
+        </audioStreamFormat>
+        <audioStreamFormat audioStreamFormatID="AS_00031003" audioStreamFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioChannelFormatIDRef>AC_00031003</audioChannelFormatIDRef>
+          <audioTrackFormatIDRef>AT_00031003_01</audioTrackFormatIDRef>
+        </audioStreamFormat>
+        <audioStreamFormat audioStreamFormatID="AS_00031004" audioStreamFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioChannelFormatIDRef>AC_00031004</audioChannelFormatIDRef>
+          <audioTrackFormatIDRef>AT_00031004_01</audioTrackFormatIDRef>
+        </audioStreamFormat>
+        <audioStreamFormat audioStreamFormatID="AS_00031005" audioStreamFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioChannelFormatIDRef>AC_00031005</audioChannelFormatIDRef>
+          <audioTrackFormatIDRef>AT_00031005_01</audioTrackFormatIDRef>
+        </audioStreamFormat>
+        <audioStreamFormat audioStreamFormatID="AS_00031006" audioStreamFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioChannelFormatIDRef>AC_00031006</audioChannelFormatIDRef>
+          <audioTrackFormatIDRef>AT_00031006_01</audioTrackFormatIDRef>
+        </audioStreamFormat>
+        <audioStreamFormat audioStreamFormatID="AS_00031007" audioStreamFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioChannelFormatIDRef>AC_00031007</audioChannelFormatIDRef>
+          <audioTrackFormatIDRef>AT_00031007_01</audioTrackFormatIDRef>
+        </audioStreamFormat>
+        <audioStreamFormat audioStreamFormatID="AS_00031008" audioStreamFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioChannelFormatIDRef>AC_00031008</audioChannelFormatIDRef>
+          <audioTrackFormatIDRef>AT_00031008_01</audioTrackFormatIDRef>
+        </audioStreamFormat>
+        <audioStreamFormat audioStreamFormatID="AS_00031009" audioStreamFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioChannelFormatIDRef>AC_00031009</audioChannelFormatIDRef>
+          <audioTrackFormatIDRef>AT_00031009_01</audioTrackFormatIDRef>
+        </audioStreamFormat>
+        <audioTrackFormat audioTrackFormatID="AT_00031001_01" audioTrackFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioStreamFormatIDRef>AS_00031001</audioStreamFormatIDRef>
+        </audioTrackFormat>
+        <audioTrackFormat audioTrackFormatID="AT_00031002_01" audioTrackFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioStreamFormatIDRef>AS_00031002</audioStreamFormatIDRef>
+        </audioTrackFormat>
+        <audioTrackFormat audioTrackFormatID="AT_00031003_01" audioTrackFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioStreamFormatIDRef>AS_00031003</audioStreamFormatIDRef>
+        </audioTrackFormat>
+        <audioTrackFormat audioTrackFormatID="AT_00031004_01" audioTrackFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioStreamFormatIDRef>AS_00031004</audioStreamFormatIDRef>
+        </audioTrackFormat>
+        <audioTrackFormat audioTrackFormatID="AT_00031005_01" audioTrackFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioStreamFormatIDRef>AS_00031005</audioStreamFormatIDRef>
+        </audioTrackFormat>
+        <audioTrackFormat audioTrackFormatID="AT_00031006_01" audioTrackFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioStreamFormatIDRef>AS_00031006</audioStreamFormatIDRef>
+        </audioTrackFormat>
+        <audioTrackFormat audioTrackFormatID="AT_00031007_01" audioTrackFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioStreamFormatIDRef>AS_00031007</audioStreamFormatIDRef>
+        </audioTrackFormat>
+        <audioTrackFormat audioTrackFormatID="AT_00031008_01" audioTrackFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioStreamFormatIDRef>AS_00031008</audioStreamFormatIDRef>
+        </audioTrackFormat>
+        <audioTrackFormat audioTrackFormatID="AT_00031009_01" audioTrackFormatName="PCM_Engine" formatLabel="0001" formatDefinition="PCM">
+          <audioStreamFormatIDRef>AS_00031009</audioStreamFormatIDRef>
+        </audioTrackFormat>
+        <audioTrackUID bitDepth="24" sampleRate="48000" UID="ATU_00000001"/>
+        <audioTrackUID bitDepth="24" sampleRate="48000" UID="ATU_00000002"/>
+        <audioTrackUID bitDepth="24" sampleRate="48000" UID="ATU_00000003"/>
+        <audioTrackUID bitDepth="24" sampleRate="48000" UID="ATU_00000004"/>
+        <audioTrackUID bitDepth="24" sampleRate="48000" UID="ATU_00000005"/>
+        <audioTrackUID bitDepth="24" sampleRate="48000" UID="ATU_00000006"/>
+        <audioTrackUID bitDepth="24" sampleRate="48000" UID="ATU_00000007"/>
+        <audioTrackUID bitDepth="24" sampleRate="48000" UID="ATU_00000008"/>
+        <audioTrackUID bitDepth="24" sampleRate="48000" UID="ATU_00000009"/>
+        <audioTrackUID bitDepth="24" sampleRate="48000" UID="ATU_00000010"/>
+      </audioFormatExtended>
+    </format>
+  </coreMetadata>
+</ebuCoreMain>

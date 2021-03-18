@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ebuCoreMain xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="urn:ebu:metadata-schema:ebuCore" xml:lang="en">
+  <coreMetadata>
+    <title typeLabel="FileTitle">
+      <dc:title xml:lang="en">Mono ADM Test File</dc:title>
+    </title>
+    <creator>
+      <organisationDetails>
+        <organisationName>BBC</organisationName>
+      </organisationDetails>
+    </creator>
+    <description typeLabel="Description" typeLink="http://www.ebu.ch/metadata/cs/ebu_DescriptionTypeCodeCS.xml#1">
+      <dc:description>
+This ADM test file contains a single track with a mono channel. The audio is an ident saying "M+000".
+    </dc:description>
+    </description>
+    <date>
+      <created startDate="2017-05-31"/>
+    </date>
+    <format>
+      <audioFormatExtended>
+        <audioObject audioObjectID="AO_1001" audioObjectName="Main">
+          <audioPackFormatIDRef>AP_00010001</audioPackFormatIDRef>
+          <audioTrackUIDRef>ATU_00000001</audioTrackUIDRef>
+        </audioObject>
+        <audioTrackUID UID="ATU_00000001" sampleRate="48000" bitDepth="24"/>
+      </audioFormatExtended>
+    </format>
+  </coreMetadata>
+</ebuCoreMain>
+ 
