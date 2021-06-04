@@ -56,7 +56,7 @@ void ofApp::draw() {
 
 	float time = ofGetElapsedTimef();
 
-	for (auto const& audioTrack : audioTracks) {
+	for (auto & audioTrack : audioTracks) {
 		std::vector<ADMParser::KeyPoint> points = audioTrack.second;
 		int idx = 0;
 		for (size_t i = 0; i < points.size(); i++) {
@@ -73,7 +73,7 @@ void ofApp::draw() {
 	ofDisableDepthTest();
 	ofPopStyle();
 
-	for (auto const& audioTrack : audioTracks) {
+	for (auto & audioTrack : audioTracks) {
 		std::vector<ADMParser::KeyPoint> points = audioTrack.second;
 		int idx = 0;
 		for (size_t i = 0; i < points.size(); i++) {

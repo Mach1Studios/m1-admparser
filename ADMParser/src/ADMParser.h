@@ -162,8 +162,12 @@ public:
 		float x;
 		float y;
 		float z;
-	};
 
+		bool operator < (const KeyPoint& b) const {
+			return time < b.time;
+		}
+	};
+	
 	typedef std::map<std::string, std::vector<KeyPoint>> AudioTracks;
 
     bool sessionDataFound = false;
@@ -294,6 +298,11 @@ public:
 					}
 				}
 			}
+
+			for (auto & audioTrack : audioTracks) {
+				std::sort(audioTrack.second.begin(), audioTrack.second.end());
+			}
+
 			return true;
 		}
 
