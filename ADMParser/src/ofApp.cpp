@@ -1,13 +1,15 @@
 #include "ofApp.h"
 
-
+#define USE_XML
 
 //--------------------------------------------------------------
 void ofApp::setup() {
 	// parse
 	ADMParser admParser;
-	//admParser.ParseFile(ofToDataPath("all-params-ADM.txt", true).c_str(), points);
 
+#ifdef USE_XML
+	admParser.ParseFile(ofToDataPath("FN_Trailer_Mix_V2_ADM.xml", true).c_str(), audioTracks);
+#else
 	std::unique_ptr<Bw64Reader> bw64File = readFile(ofToDataPath("Strike Up the Band v10.wav", true).c_str());
 	Bw64Reader* ptr = bw64File.get();
 
@@ -16,12 +18,13 @@ void ofApp::setup() {
 		bw64File->axmlChunk()->write(axmlStringstream);
 		std::cout << axmlStringstream.str();
 
-		admParser.ParseString(axmlStringstream.str().c_str(), points);
+		admParser.ParseString(axmlStringstream.str().c_str(), audioTracks);
 	}
 	else {
 		std::cerr << "could not find an axml chunk";
-		
+
 	}
+#endif
 }
 
 
@@ -49,10 +52,19 @@ void ofApp::draw() {
 	ofNoFill();
 	ofSetColor(100);
 	ofDrawBox(2); // [-1; 1]
-	ofFill();
-	for (auto point : points) {
+	ofFill(); 
+
+	float time = ofGetElapsedTimef();
+
+	for (auto const& audioTrack : audioTracks) {
+		std::vector<ADMParser::KeyPoint> points = audioTrack.second;
+		int idx = 0;
+		for (size_t i = 0; i < points.size(); i++) {
+			if (points[i].time <= time) idx = i;
+		}
+
 		ofPushMatrix();
-		ofTranslate(point.x, point.y, point.z);
+		ofTranslate(points[idx].x, points[idx].y, points[idx].z);
 		ofSetColor(0, 0, 255);
 		ofDrawSphere(0, 0, 0, 0.02);
 		ofPopMatrix();
@@ -61,8 +73,14 @@ void ofApp::draw() {
 	ofDisableDepthTest();
 	ofPopStyle();
 
-	for (auto point : points) {
-		ofDrawBitmapString(point.audioTrack, cam.worldToScreen(ofVec3f(point.x, point.y, point.z)) + ofVec3f(5, 10, 0));
+	for (auto const& audioTrack : audioTracks) {
+		std::vector<ADMParser::KeyPoint> points = audioTrack.second;
+		int idx = 0;
+		for (size_t i = 0; i < points.size(); i++) {
+			if (points[i].time <= time) idx = i;
+		}
+
+		ofDrawBitmapString(audioTrack.first, cam.worldToScreen(ofVec3f(points[idx].x, points[idx].y, points[idx].z)) + ofVec3f(5, 10, 0));
 	}
 }
 

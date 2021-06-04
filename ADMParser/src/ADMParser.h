@@ -1,9 +1,12 @@
 #pragma once
 
+#include <iostream>
 #include <string>
 #include <vector>
+#include <map>
+#include <regex>
+
 #include <math.h>
-#include <iostream>
 
 #include "pugixml.hpp"
 #include "2094_common_definitions.xml.h"
@@ -19,9 +22,11 @@ class ADMParser {
 private:
 	struct ADMBlock {
 		std::string id;
-		float x;
-		float y;
-		float z;
+		float rtime = 0;
+		float duration = 0;
+		float x = 0;
+		float y = 0;
+		float z = 0;
 	};
 
 	struct ADMAudioChannel {
@@ -50,6 +55,16 @@ private:
 		std::vector<ADMAudioProgramme> audioProgrammes;
 	};
 
+	static float parseTimeString(std::string str) {
+		float t = 0;
+		std::smatch m;
+		std::regex_search(str, m, std::regex("([0-9]{2}):([0-9]{2}):([0-9]{2}\\.[0-9]+)"));
+		if (m.size() == 4) {
+			t = 60 * 60 * std::stof(m[1]) + 60 * std::stof(m[2]) + std::stof(m[3]);
+		}
+		return t;
+	}
+
 	static bool FindAudioChannel(pugi::xml_document& doc, string rootTag, string audioPackFormatIDRef, vector<ADMAudioChannel>& admAudioChannels) {
 		bool bFound = false;
 
@@ -76,6 +91,8 @@ private:
 
 									ADMBlock admBlock;
 									admBlock.id = xmlAudioBlockFormat.attribute("audioBlockFormatID").as_string();
+									admBlock.rtime = parseTimeString(xmlAudioBlockFormat.attribute("rtime").as_string());
+									admBlock.duration = parseTimeString(xmlAudioBlockFormat.attribute("duration").as_string());
 
 									bool cartesian = xmlAudioBlockFormat.child("cartesian").text().as_int();
 									if (cartesian) {
@@ -140,12 +157,14 @@ private:
 
 public:
 
-	struct Point {
-		std::string audioTrack;
+	struct KeyPoint {
+		float time;
 		float x;
 		float y;
 		float z;
 	};
+
+	typedef std::map<std::string, std::vector<KeyPoint>> AudioTracks;
 
     bool sessionDataFound = false;
     
@@ -170,27 +189,27 @@ public:
 		return sessionDataFound;
     }
     
-	bool ParseString(const char* string, vector<Point>& points) {
+	bool ParseString(const char* string, AudioTracks& audioTracks) {
 		pugi::xml_document doc;
 
 		if (doc.load_string(string)) {
-			return ParseXMLDoc(doc, points);
+			return ParseXMLDoc(doc, audioTracks);
 		}
 
 		return false;
 	}
 
-	bool ParseFile(const char* filename, vector<Point>& points) {
+	bool ParseFile(const char* filename, AudioTracks& audioTracks) {
 		pugi::xml_document doc;
 
 		if (doc.load_file(filename)) {
-			return ParseXMLDoc(doc, points);
+			return ParseXMLDoc(doc, audioTracks);
 		}
 
 		return false;
 	}
 
-	bool ParseXMLDoc(pugi::xml_document& doc, vector<Point>& points) {
+	bool ParseXMLDoc(pugi::xml_document& doc, AudioTracks& audioTracks) {
 
 		pugi::xml_document docCommonDefinitions;
 
@@ -248,7 +267,7 @@ public:
 				admDocument.audioProgrammes.push_back(admAudioProgramme);
 			}
 
-			points.clear();
+			audioTracks.clear();
 			for (auto audioProgramme : admDocument.audioProgrammes) {
 				for (auto audioContent : audioProgramme.audioContents) {
 					for (auto audioObject : audioContent.audioObjects) {
@@ -258,12 +277,16 @@ public:
 								for (int j = 0; j < audioObject.audioChannels[i].blocks.size(); j++) {
 									ADMParser::ADMBlock block = audioObject.audioChannels[i].blocks[j];
 
-									Point point;
-									point.audioTrack = audioObject.audioTracks[i];
+									if (audioTracks.find(audioObject.audioTracks[i]) == audioTracks.end()) {
+										audioTracks[audioObject.audioTracks[i]] = std::vector<KeyPoint>();
+									}
+
+									KeyPoint point;
 									point.x = block.x;
-									point.y = block.y;
-									point.z = block.z;
-									points.push_back(point);
+									point.y = block.z;
+									point.z = block.y;
+									point.time = block.rtime;
+									audioTracks[audioObject.audioTracks[i]].push_back(point);
 								}
 							}
 						}

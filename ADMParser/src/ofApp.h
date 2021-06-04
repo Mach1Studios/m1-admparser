@@ -10,7 +10,7 @@ using namespace bw64;
 class ofApp : public ofBaseApp {
 
 	ofEasyCam cam;
-	vector<ADMParser::Point> points;
+	ADMParser::AudioTracks audioTracks;
 
 public:
 	void setup();
