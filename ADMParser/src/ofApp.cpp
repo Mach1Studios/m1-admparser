@@ -25,6 +25,26 @@ void ofApp::setup() {
 
 	}
 #endif
+
+	// output yaml file
+	std::ofstream out("output.atmos");
+	out << "sampleRate: 48000" << std::endl;
+	for (auto & audioTrack : audioTracks) {
+		out << "  - ID: " << audioTrack.first << std::endl;
+		std::vector<ADMParser::KeyPoint> points = audioTrack.second;
+		for (size_t i = 0; i < points.size(); i++) {
+			if (i == 0) {
+				out << "    ";
+			}
+			else {
+				out << "  - ";
+			}
+
+			out << "samplePos: " << (long long int)(points[i].time * 48000) << std::endl;
+			out << "    pos: [" << points[i].y << ", " << points[i].z << ", " << points[i].x << "]" << std::endl;
+		}
+	}
+	out.close();
 }
 
 
