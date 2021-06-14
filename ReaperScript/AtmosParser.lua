@@ -22,17 +22,22 @@ local inspect = require('inspect')
 local yaml = require('yaml')
 
 local data = yaml.eval(readAll(path .. filename))
-local ID = -1
+local ID = "0"
+
+--msg(inspect(data.events))
 
 function insert_env_points()
+  msg("Checking FX")
   local retval, track_number, item_number, fx_number = reaper.GetFocusedFX()
   if retval == 1 and item_number == -1 then -- currently only track FXs are supported
     local track = reaper.CSurf_TrackFromID(track_number, false)
     local is_open = reaper.TrackFX_GetOpen(track, fx_number) 
     if not is_open then
+      msg("Need to open FX UI")
       return
     end
     reaper.PreventUIRefresh(1)
+  msg("Start")
 	local env = {}
     for i=1, reaper.TrackFX_GetNumParams(track, fx_number) do
       local ret, param_name = reaper.TrackFX_GetParamName(track, fx_number, i-1, "")
@@ -56,9 +61,14 @@ function insert_env_points()
 	
 	--seems z not used
 	--reaper.DeleteEnvelopePointRange(env["Elevation"], 0, 3600)
-	
+
+
 	local found = false
 	for i = 1, #data.events do
+
+		--msg(inspect(data.events[i]))
+		--msg(data.events[i].ID .. "  " .. ID)
+
 		if data.events[i].ID ~= nil and data.events[i].ID ~= ID then
 			found = false
 		end
@@ -95,11 +105,15 @@ function insert_env_points()
     reaper.TrackList_AdjustWindows(false)
   end
   reaper.Undo_OnStateChangeEx("Create envelope points from FX parameter values", -1, -1)
+
+  msg("Finished")
 end
 
 
-local retval, val = reaper.GetUserInputs("Choose track ID", 1, "ID", "25")
+local retval, val = reaper.GetUserInputs("Choose track ID", 1, "ID", "ATU_0000001f")
+msg("-------------")
 if retval then 
-	ID = tonumber(val)
+	ID = val --tonumber(val)
+  msg(inspect(ID))
 	reaper.defer(insert_env_points)
 end
