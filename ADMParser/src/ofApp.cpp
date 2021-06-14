@@ -29,6 +29,7 @@ void ofApp::setup() {
 	// output yaml file
 	std::ofstream out("output.atmos");
 	out << "sampleRate: 48000" << std::endl;
+	out << "events:" << std::endl;
 	for (auto & audioTrack : audioTracks) {
 		out << "  - ID: " << audioTrack.first << std::endl;
 		std::vector<ADMParser::KeyPoint> points = audioTrack.second;
