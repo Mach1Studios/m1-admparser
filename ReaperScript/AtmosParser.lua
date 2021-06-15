@@ -64,6 +64,12 @@ function insert_env_points()
 		if param_name == "Elevation" then
 		  env["Elevation"]  = fx_env
 		end
+		if param_name == "x" then
+		  env["x"]  = fx_env
+		end
+		if param_name == "y" then
+		  env["y"]  = fx_env
+		end
       end
     end
 	
@@ -71,6 +77,8 @@ function insert_env_points()
 	reaper.DeleteEnvelopePointRange(env["Rotation"], 0, 3600)
 	reaper.DeleteEnvelopePointRange(env["Diverge"], 0, 3600)
 	reaper.DeleteEnvelopePointRange(env["Elevation"], 0, 3600)
+	reaper.DeleteEnvelopePointRange(env["x"], 0, 3600)
+	reaper.DeleteEnvelopePointRange(env["y"], 0, 3600)
 
 	local found = false
 	local cnt = 0
@@ -118,7 +126,7 @@ function insert_env_points()
     reaper.PreventUIRefresh(-1)
     reaper.TrackList_AdjustWindows(false)
   else 
-	msg("No FX")
+	msg("No FX, you need to open M1-Panner UI window")
   end
   reaper.Undo_OnStateChangeEx("Create envelope points from FX parameter values", -1, -1)
 
