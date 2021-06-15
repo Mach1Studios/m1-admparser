@@ -22,9 +22,7 @@ local inspect = require('inspect')
 local yaml = require('yaml')
 
 local data = yaml.eval(readAll(path .. filename))
-local ID = "0"
 
---msg(inspect(data.events))
 
 function vector_dot(a, b)
   return a[1] * b[1] + a[2] * b[2] + a[3] * b[3]
@@ -39,18 +37,20 @@ function vector_angle_between(a, b)
 end
 
 function insert_env_points()
-  msg("Checking FX")
-  local retval, track_number, item_number, fx_number = reaper.GetFocusedFX()
-  if retval == 1 and item_number == -1 then -- currently only track FXs are supported
-    local track = reaper.CSurf_TrackFromID(track_number, false)
-    local is_open = reaper.TrackFX_GetOpen(track, fx_number) 
-    if not is_open then
-      msg("Need to open FX UI")
-      return
-    end
+  --msg("Checking FX")
+  local data1 = yaml.eval(readAll(path .. filename))
+  local data2 = yaml.eval(readAll(path .. filename .. ".metadata"))
+  --msg(inspect(data.events))
+ 
+  for n=0, reaper.GetNumTracks()-1 do
+    local track = reaper.CSurf_TrackFromID( reaper.GetNumTracks(n), false )
+	local retval, trackName = reaper.GetTrackName(track)
+    msg("process track: " .. trackName)
+
     reaper.PreventUIRefresh(1)
-    msg("Start")
+
 	local env = {}
+	local fx_number = 0
     for i=1, reaper.TrackFX_GetNumParams(track, fx_number) do
       local ret, param_name = reaper.TrackFX_GetParamName(track, fx_number, i-1, "")
       local fx_env = reaper.GetFXEnvelope(track, fx_number, i-1, true)
@@ -82,24 +82,91 @@ function insert_env_points()
 
 	local found = false
 	local cnt = 0
-	for i = 1, #data.events do
+	
+	for i = 1, #data1.presentations[1].bedInstances[1].channels do
 
-		--msg(inspect(data.events[i]))
-		--msg(data.events[i].ID .. "  " .. ID)
+		local ID = tostring(data1.presentations[1].bedInstances[1].channels[i].ID)
 
-		if data.events[i].ID ~= nil and data.events[i].ID ~= ID then
+		if ID ~= nil and ID == trackName then
+		
+			local Rotation = 0
+			local Diverge = 0
+			local Elevation = 0
+
+			local channel = data1.presentations[1].bedInstances[1].channels[i].channel
+			if channel == "L" then
+				Rotation = -90
+				Diverge = 100
+				Elevation = 0
+			elseif channel == "R" then
+				Rotation = 90
+				Diverge = 100
+				Elevation = 0
+			elseif channel == "C" then
+				Rotation = 0
+				Diverge = 100
+				Elevation = 0
+			elseif channel == "LFE" then
+				Rotation = 0
+				Diverge = 100
+				Elevation = 0
+			elseif channel == "Lss" then
+				Rotation = 0
+				Diverge = 100
+				Elevation = 0
+			elseif channel == "Rss" then
+				Rotation = 0
+				Diverge = 100
+				Elevation = 0
+			elseif channel == "Lrs" then
+				Rotation = 0
+				Diverge = 100
+				Elevation = 0
+			elseif channel == "Rrs" then
+				Rotation = 0
+				Diverge = 100
+				Elevation = 0
+			elseif channel == "Lts" then
+				Rotation = 0
+				Diverge = 100
+				Elevation = 0
+			elseif channel == "Rts" then
+				Rotation = 0
+				Diverge = 100
+				Elevation = 0
+			end
+
+			Rotation = map_range(-180, 180, 0.0, 1.0, Rotation)
+			Diverge = map_range(-100, 100, 0.0, 1.0, Diverge)
+			Elevation = map_range(-90.0, 90.0, 0.0, 1.0, Elevation)
+
+			reaper.InsertEnvelopePoint(env["Rotation"], 0, Rotation, 0, 0, false, true)
+			reaper.InsertEnvelopePoint(env["Diverge"], 0, Diverge, 0, 0, false, true)
+			reaper.InsertEnvelopePoint(env["Elevation"], 0, Elevation, 0, 0, false, true)
+
+			cnt = cnt + 1
+		end
+	end
+	
+	for i = 1, #data2.events do
+
+		--msg(inspect(data2.events[i]))
+		--msg(data2.events[i].ID .. "  " .. trackName)
+		local ID = tostring(data2.events[i].ID)
+
+		if ID ~= nil and ID ~= trackName then
 			found = false
 		end
 
-		if data.events[i].ID ~= nil and data.events[i].ID == ID then
+		if ID ~= nil and ID == trackName then
 			found = true
 		end
 
-		if found and data.events[i].pos ~= nil then
-			local p = 1.0 * data.events[i].samplePos / data.sampleRate
-			local x = (data.events[i].pos[1])
-			local y = (data.events[i].pos[2])
-			local z = (data.events[i].pos[3])
+		if found and data2.events[i].pos ~= nil then
+			local p = 1.0 * data2.events[i].samplePos / data2.sampleRate
+			local x = (data2.events[i].pos[1])
+			local y = (data2.events[i].pos[2])
+			local z = (data2.events[i].pos[3])
 			
 			local Rotation = math.deg(math.atan(x, y))
 			Rotation = map_range(-180, 180, 0.0, 1.0, Rotation)
@@ -121,12 +188,12 @@ function insert_env_points()
 		end
 
 	end
-    msg("Imported " .. cnt .. " points")
+    
+	msg("Imported " .. cnt .. " points")
 	
     reaper.PreventUIRefresh(-1)
     reaper.TrackList_AdjustWindows(false)
-  else 
-	msg("No FX, you need to open M1-Panner UI window")
+	
   end
   reaper.Undo_OnStateChangeEx("Create envelope points from FX parameter values", -1, -1)
 
@@ -134,10 +201,4 @@ function insert_env_points()
 end
 
 
-local retval, val = reaper.GetUserInputs("Choose track ID", 1, "ID", "ATU_00000001")
-msg("-------------")
-if retval then 
-	ID = val --tonumber(val)
-  msg(inspect(ID))
-	reaper.defer(insert_env_points)
-end
+reaper.defer(insert_env_points)
