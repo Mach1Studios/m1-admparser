@@ -26,6 +26,18 @@ local ID = "0"
 
 --msg(inspect(data.events))
 
+function vector_dot(a, b)
+  return a[1] * b[1] + a[2] * b[2] + a[3] * b[3]
+end
+
+function vector_mag(a)
+  return math.sqrt(a[1] * a[1] + a[2] * a[2] + a[3] * a[3])
+end
+
+function vector_angle_between(a, b)
+  return math.deg(math.acos(vector_dot(a, b) / (vector_mag(a) * vector_mag(b))))
+end
+
 function insert_env_points()
   msg("Checking FX")
   local retval, track_number, item_number, fx_number = reaper.GetFocusedFX()
@@ -37,7 +49,7 @@ function insert_env_points()
       return
     end
     reaper.PreventUIRefresh(1)
-  msg("Start")
+    msg("Start")
 	local env = {}
     for i=1, reaper.TrackFX_GetNumParams(track, fx_number) do
       local ret, param_name = reaper.TrackFX_GetParamName(track, fx_number, i-1, "")
@@ -58,12 +70,10 @@ function insert_env_points()
 	-- clear envelope
 	reaper.DeleteEnvelopePointRange(env["Rotation"], 0, 3600)
 	reaper.DeleteEnvelopePointRange(env["Diverge"], 0, 3600)
-	
-	--seems z not used
-	--reaper.DeleteEnvelopePointRange(env["Elevation"], 0, 3600)
-
+	reaper.DeleteEnvelopePointRange(env["Elevation"], 0, 3600)
 
 	local found = false
+	local cnt = 0
 	for i = 1, #data.events do
 
 		--msg(inspect(data.events[i]))
@@ -91,18 +101,24 @@ function insert_env_points()
 			Diverge = map_range(-1.0, 1.0, 0.0, 1.0, Diverge)
 			--msg("Diverge: " .. Diverge)
 			
-			--local Elevation = 0 
+			local Elevation = vector_angle_between({x, y, z}, {x, y, 0.0})
+			Elevation = map_range(-90.0, 90.0, 0.0, 1.0, Elevation)
 			--msg("Elevation: " .. Elevation)
 			
 			reaper.InsertEnvelopePoint(env["Rotation"], p, Rotation, 0, 0, false, true)
 			reaper.InsertEnvelopePoint(env["Diverge"], p, Diverge, 0, 0, false, true)
-			--reaper.InsertEnvelopePoint(env["Elevation"], p, Elevation, 0, 0, false, true)
+			reaper.InsertEnvelopePoint(env["Elevation"], p, Elevation, 0, 0, false, true)
+			
+			cnt = cnt + 1
 		end
 
 	end
+    msg("Imported " .. cnt .. " points")
 	
     reaper.PreventUIRefresh(-1)
     reaper.TrackList_AdjustWindows(false)
+  else 
+	msg("No FX")
   end
   reaper.Undo_OnStateChangeEx("Create envelope points from FX parameter values", -1, -1)
 
@@ -110,7 +126,7 @@ function insert_env_points()
 end
 
 
-local retval, val = reaper.GetUserInputs("Choose track ID", 1, "ID", "ATU_0000001f")
+local retval, val = reaper.GetUserInputs("Choose track ID", 1, "ID", "ATU_00000001")
 msg("-------------")
 if retval then 
 	ID = val --tonumber(val)
