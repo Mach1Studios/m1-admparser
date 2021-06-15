@@ -1,5 +1,5 @@
 local path = "PATH_TO/AtmosParser/ReaperScript"
-local filename = "my_example.atmos.metadata"
+local filename = "my_example.atmos"
 
 function readAll(file)
     local f = assert(io.open(file, "rb"))
