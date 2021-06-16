@@ -95,11 +95,11 @@ function insert_env_points()
 
 			local channel = data1.presentations[1].bedInstances[1].channels[i].channel
 			if channel == "L" then
-				Rotation = -90
+				Rotation = -45
 				Diverge = 100
 				Elevation = 0
 			elseif channel == "R" then
-				Rotation = 90
+				Rotation = 45
 				Diverge = 100
 				Elevation = 0
 			elseif channel == "C" then
@@ -108,31 +108,31 @@ function insert_env_points()
 				Elevation = 0
 			elseif channel == "LFE" then
 				Rotation = 0
-				Diverge = 100
+				Diverge = 0
 				Elevation = 0
 			elseif channel == "Lss" then
-				Rotation = 0
+				Rotation = -90
 				Diverge = 100
 				Elevation = 0
 			elseif channel == "Rss" then
-				Rotation = 0
+				Rotation = 90
 				Diverge = 100
 				Elevation = 0
 			elseif channel == "Lrs" then
-				Rotation = 0
+				Rotation = -135
 				Diverge = 100
 				Elevation = 0
 			elseif channel == "Rrs" then
-				Rotation = 0
+				Rotation = 135
 				Diverge = 100
 				Elevation = 0
 			elseif channel == "Lts" then
-				Rotation = 0
-				Diverge = 100
+				Rotation = -90
+				Diverge = 35
 				Elevation = 0
 			elseif channel == "Rts" then
-				Rotation = 0
-				Diverge = 100
+				Rotation = 90
+				Diverge = 35
 				Elevation = 0
 			end
 
