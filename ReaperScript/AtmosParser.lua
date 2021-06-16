@@ -43,14 +43,15 @@ function insert_env_points()
   --msg(inspect(data.events))
  
   for n=0, reaper.GetNumTracks()-1 do
-    local track = reaper.CSurf_TrackFromID( reaper.GetNumTracks(n), false )
-	local retval, trackName = reaper.GetTrackName(track)
+
+    local track = reaper.CSurf_TrackFromID( n+1, false )
+	  local retval, trackName = reaper.GetTrackName(track)
     msg("process track: " .. trackName)
 
     reaper.PreventUIRefresh(1)
 
-	local env = {}
-	local fx_number = 0
+	  local env = {}
+	  local fx_number = 0
     for i=1, reaper.TrackFX_GetNumParams(track, fx_number) do
       local ret, param_name = reaper.TrackFX_GetParamName(track, fx_number, i-1, "")
       local fx_env = reaper.GetFXEnvelope(track, fx_number, i-1, true)
@@ -203,4 +204,3 @@ function insert_env_points()
 end
 
 reaper.defer(insert_env_points)
-
