@@ -36,6 +36,26 @@ function vector_angle_between(a, b)
   return math.deg(math.acos(vector_dot(a, b) / (vector_mag(a) * vector_mag(b))))
 end
 
+function ConvertRCtoXYRaw(r, d)
+    local abs_d = math.abs(d)
+    local x_tmp
+    local y_tmp
+        
+    if abs_d == 0.0 then
+        x_tmp = 0
+        y_tmp = 0
+    else
+        local sign = d / abs_d;
+        local rotation_radian = math.rad(r)
+	    local center = abs_d * math.sqrt(2)
+        local ratio_x_center = math.sin(rotation_radian)
+        local ratio_y_center = math.cos(rotation_radian)
+        x_tmp = sign * ratio_x_center * center
+        y_tmp = sign * ratio_y_center * center
+    end
+    return { x_tmp, y_tmp }
+end
+	
 function insert_env_points()
   --msg("Checking FX")
   local generalmetadata = yaml.eval(readAll(path .. filename))
@@ -77,11 +97,11 @@ function insert_env_points()
 	
 	if env["Rotation"] ~= nil and env["Diverge"] ~= nil and env["Elevation"] ~= nil and env["x"] ~= nil and env["y"] ~= nil then
   	-- clear envelope
-		--reaper.DeleteEnvelopePointRange(env["Rotation"], 0, 3600)
-		--reaper.DeleteEnvelopePointRange(env["Diverge"], 0, 3600)
-		--reaper.DeleteEnvelopePointRange(env["Elevation"], 0, 3600)
-		--reaper.DeleteEnvelopePointRange(env["x"], 0, 3600)
-		--reaper.DeleteEnvelopePointRange(env["y"], 0, 3600)
+		reaper.DeleteEnvelopePointRange(env["Rotation"], 0, 3600)
+		reaper.DeleteEnvelopePointRange(env["Diverge"], 0, 3600)
+		reaper.DeleteEnvelopePointRange(env["Elevation"], 0, 3600)
+		reaper.DeleteEnvelopePointRange(env["x"], 0, 3600)
+		reaper.DeleteEnvelopePointRange(env["y"], 0, 3600)
 
 		local found = false
 		local cnt = 0
@@ -139,13 +159,20 @@ function insert_env_points()
 					Elevation = 0
 				end
 
-				Rotation = map_range(-180, 180, 0.0, 1.0, Rotation)
-				Diverge = map_range(-100, 100, 0.0, 1.0, Diverge)
-				Elevation = map_range(-90.0, 90.0, 0.0, 1.0, Elevation)
+				reaper.InsertEnvelopePoint(env["Rotation"], 0, map_range(-180, 180, 0.0, 1.0, Rotation), 0, 0, false, true)
+				reaper.InsertEnvelopePoint(env["Diverge"], 0, map_range(-100, 100, 0.0, 1.0, Diverge), 0, 0, false, true)
+				reaper.InsertEnvelopePoint(env["Elevation"], 0, map_range(-90.0, 90.0, 0.0, 1.0, Elevation), 0, 0, false, true)
 
-				reaper.InsertEnvelopePoint(env["Rotation"], 0, Rotation, 0, 0, false, true)
-				reaper.InsertEnvelopePoint(env["Diverge"], 0, Diverge, 0, 0, false, true)
-				reaper.InsertEnvelopePoint(env["Elevation"], 0, Elevation, 0, 0, false, true)
+				--msg("Rotation: " .. Rotation)
+				--msg("Diverge: " .. Diverge)
+				--msg("Elevation: " .. Elevation)
+
+				local xy = ConvertRCtoXYRaw(Rotation, Diverge)
+				--msg("x: " .. xy[1])
+				--msg("y: " .. xy[2])
+
+				reaper.InsertEnvelopePoint(env["x"], 0, map_range(-1.0, 1.0, 0.0, 1.0, xy[1]), 0, 0, false, true)
+				reaper.InsertEnvelopePoint(env["y"], 0, map_range(-1.0, 1.0, 0.0, 1.0, xy[2]), 0, 0, false, true)
 
 				cnt = cnt + 1
 			end
@@ -172,21 +199,25 @@ function insert_env_points()
 				local z = (objectmetadata.events[i].pos[3])
 				
 				local Rotation = math.deg(math.atan(x, y))
-				Rotation = map_range(-180, 180, 0.0, 1.0, Rotation)
 				--msg("Rotation: " .. Rotation)
 				
 				local Diverge = math.sqrt(x * x + y * y) / math.sqrt(2.0)
-				Diverge = map_range(-100.0, 100.0, 0.0, 1.0, Diverge)
 				--msg("Diverge: " .. Diverge)
 				
 				local Elevation = vector_angle_between({x, y, z}, {x, y, 0.0})
-				Elevation = map_range(-90.0, 90.0, 0.0, 1.0, Elevation)
 				--msg("Elevation: " .. Elevation)
 				
-				reaper.InsertEnvelopePoint(env["Rotation"], p, Rotation, 0, 0, false, true)
-				reaper.InsertEnvelopePoint(env["Diverge"], p, Diverge, 0, 0, false, true)
-				reaper.InsertEnvelopePoint(env["Elevation"], p, Elevation, 0, 0, false, true)
+				reaper.InsertEnvelopePoint(env["Rotation"], p, map_range(-180, 180, 0.0, 1.0, Rotation), 0, 0, false, true)
+				reaper.InsertEnvelopePoint(env["Diverge"], p, map_range(-100.0, 100.0, 0.0, 1.0, Diverge), 0, 0, false, true)
+				reaper.InsertEnvelopePoint(env["Elevation"], p, map_range(-90.0, 90.0, 0.0, 1.0, Elevation), 0, 0, false, true)
 				
+				local xy = ConvertRCtoXYRaw(Rotation, Diverge)
+				--msg("x: " .. xy[1])
+				--msg("y: " .. xy[2])
+
+				reaper.InsertEnvelopePoint(env["x"], 0, map_range(-1.0, 1.0, 0.0, 1.0, xy[1]), 0, 0, false, true)
+				reaper.InsertEnvelopePoint(env["y"], 0, map_range(-1.0, 1.0, 0.0, 1.0, xy[2]), 0, 0, false, true)
+
 				cnt = cnt + 1
 			end
 		end
