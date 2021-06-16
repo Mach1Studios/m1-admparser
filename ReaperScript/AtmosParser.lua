@@ -74,11 +74,14 @@ function insert_env_points()
     end
 	
 	-- clear envelope
-	reaper.DeleteEnvelopePointRange(env["Rotation"], 0, 3600)
-	reaper.DeleteEnvelopePointRange(env["Diverge"], 0, 3600)
-	reaper.DeleteEnvelopePointRange(env["Elevation"], 0, 3600)
-	reaper.DeleteEnvelopePointRange(env["x"], 0, 3600)
-	reaper.DeleteEnvelopePointRange(env["y"], 0, 3600)
+	-- name the track containing M1-Monitor "Mach1SpatialSum" to safely skip
+	if trackName ~= "Mach1SpatialSum" then
+		reaper.DeleteEnvelopePointRange(env["Rotation"], 0, 3600)
+		reaper.DeleteEnvelopePointRange(env["Diverge"], 0, 3600)
+		reaper.DeleteEnvelopePointRange(env["Elevation"], 0, 3600)
+		reaper.DeleteEnvelopePointRange(env["x"], 0, 3600)
+		reaper.DeleteEnvelopePointRange(env["y"], 0, 3600)
+	end
 
 	local found = false
 	local cnt = 0
@@ -186,11 +189,10 @@ function insert_env_points()
 			
 			cnt = cnt + 1
 		end
-
 	end
     
 	msg("Imported " .. cnt .. " points")
-	
+
     reaper.PreventUIRefresh(-1)
     reaper.TrackList_AdjustWindows(false)
 	
@@ -200,5 +202,5 @@ function insert_env_points()
   msg("Finished")
 end
 
-
 reaper.defer(insert_env_points)
+
