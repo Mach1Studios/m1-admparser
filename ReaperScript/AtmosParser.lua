@@ -36,6 +36,12 @@ function vector_angle_between(a, b)
   return math.deg(math.acos(vector_dot(a, b) / (vector_mag(a) * vector_mag(b))))
 end
 
+function math.Clamp(val, lower, upper)
+    assert(val and lower and upper, "not very useful error message here")
+    if lower > upper then lower, upper = upper, lower end -- swap if boundaries supplied the wrong way
+    return math.max(lower, math.min(upper, val))
+end
+
 function ConvertRCtoXYRaw(r, d)
     local abs_d = math.abs(d)
     local x_tmp
@@ -51,9 +57,9 @@ function ConvertRCtoXYRaw(r, d)
         local ratio_x_center = math.sin(rotation_radian)
         local ratio_y_center = math.cos(rotation_radian)
         x_tmp = sign * ratio_x_center * center
-        y_tmp = sign * ratio_y_center * center
+        y_tmp = sign * ratio_y_center * center 
     end
-    return { x_tmp, y_tmp }
+    return { math.Clamp(x_tmp, -100, 100), math.Clamp(y_tmp, -100, 100) }
 end
 	
 function insert_env_points()
@@ -163,16 +169,16 @@ function insert_env_points()
 				reaper.InsertEnvelopePoint(env["Diverge"], 0, map_range(-100, 100, 0.0, 1.0, Diverge), 0, 0, false, true)
 				reaper.InsertEnvelopePoint(env["Elevation"], 0, map_range(-90.0, 90.0, 0.0, 1.0, Elevation), 0, 0, false, true)
 
-				--msg("Rotation: " .. Rotation)
-				--msg("Diverge: " .. Diverge)
-				--msg("Elevation: " .. Elevation)
+				msg("Rotation: " .. Rotation)
+				msg("Diverge: " .. Diverge)
+				msg("Elevation: " .. Elevation)
 
 				local xy = ConvertRCtoXYRaw(Rotation, Diverge)
-				--msg("x: " .. xy[1])
-				--msg("y: " .. xy[2])
+				msg("x: " .. xy[1])
+				msg("y: " .. xy[2])
 
-				reaper.InsertEnvelopePoint(env["x"], 0, map_range(-1.0, 1.0, 0.0, 1.0, xy[1]), 0, 0, false, true)
-				reaper.InsertEnvelopePoint(env["y"], 0, map_range(-1.0, 1.0, 0.0, 1.0, xy[2]), 0, 0, false, true)
+				reaper.InsertEnvelopePoint(env["x"], 0, map_range(-100.0, 100.0, 0.0, 1.0, xy[1]), 0, 0, false, true)
+				reaper.InsertEnvelopePoint(env["y"], 0, map_range(-100.0, 100.0, 0.0, 1.0, xy[2]), 0, 0, false, true)
 
 				cnt = cnt + 1
 			end
@@ -215,8 +221,8 @@ function insert_env_points()
 				--msg("x: " .. xy[1])
 				--msg("y: " .. xy[2])
 
-				reaper.InsertEnvelopePoint(env["x"], 0, map_range(-1.0, 1.0, 0.0, 1.0, xy[1]), 0, 0, false, true)
-				reaper.InsertEnvelopePoint(env["y"], 0, map_range(-1.0, 1.0, 0.0, 1.0, xy[2]), 0, 0, false, true)
+				reaper.InsertEnvelopePoint(env["x"], 0, map_range(-100.0, 100.0, 0.0, 1.0, xy[1]), 0, 0, false, true)
+				reaper.InsertEnvelopePoint(env["y"], 0, map_range(-100.0, 100.0, 0.0, 1.0, xy[2]), 0, 0, false, true)
 
 				cnt = cnt + 1
 			end
