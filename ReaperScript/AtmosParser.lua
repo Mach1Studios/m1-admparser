@@ -33,7 +33,11 @@ function vector_mag(a)
 end
 
 function vector_angle_between(a, b)
-   return math.deg(math.acos(vector_dot(a, b) / (vector_mag(a) * vector_mag(b))))
+   local res = 0
+   if a[1] ~= b[1] or a[2] ~= b[2] or a[3] ~= b[3] then 
+      res = math.deg(math.acos(vector_dot(a, b) / (vector_mag(a) * vector_mag(b))))
+   end
+   return res
 end
 
 function math.Clamp(val, lower, upper)
